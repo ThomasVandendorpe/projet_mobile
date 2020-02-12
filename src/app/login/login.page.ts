@@ -15,22 +15,41 @@ export class LoginPage implements OnInit {
   createAccountPage : CreateAccountPage
   formAdd: { email: string, password: string } = { email: "", password: "" }
   
-  constructor(private router: Router, private auth : AuthGuardService) { }
+  constructor(
+    private router: Router,
+    private auth : AuthGuardService
+    ) { }
   
   ngOnInit() {
   }
   
   logForm() {
     console.log(this.formAdd)
-    firebase.auth().signInWithEmailAndPassword(this.formAdd.email, this.formAdd.password).then(res=>{
+    firebase.auth()
+    .signInWithEmailAndPassword(this.formAdd.email, this.formAdd.password)
+    .then(res=>{
       this.auth.login()
       this.router.navigate(['/todolist'])
-    }
-      ).catch(function(error) {
+    })
+    .catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-      });
-    }
-
+    });
   }
+
+  fb_auth() {
+    var provider = new firebase.auth.FacebookAuthProvider();
+    firebase.auth()
+    .signInWithRedirect(provider)
+    .then(result => {
+      this.auth.login()
+      this.router.navigate(['/todolist'])
+    }).catch(error => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      var email = error.email;
+      var credential = error.credential;
+    });
+  }
+}

@@ -18,5 +18,8 @@
     <ion-button [routerLink]="['/create-account']" routerDirection="forward"  expand="full" size="default">
       Register
     </ion-button>
+    <ion-button (click)="fb_auth()">
+      Authenticate with facebook
+    </ion-button>
   </form>
 </ion-content>
