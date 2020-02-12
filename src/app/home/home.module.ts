@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { HomePage } from './home.page';
 import { TodolistPage } from '../todolist/todolist.page';
 import { CreateAccountPage } from '../create-account/create-account.page';
+import { LoginPage } from '../login/login.page';
 
 @NgModule({
   imports: [
@@ -20,6 +21,6 @@ import { CreateAccountPage } from '../create-account/create-account.page';
       }
     ])
   ],
-  declarations: [HomePage, TodolistPage, CreateAccountPage]
+  declarations: [HomePage]
 })
 export class HomePageModule {}
