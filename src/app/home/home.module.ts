@@ -30,7 +30,7 @@ import { CreateAccountPageModule } from '../create-account/create-account.module
             children: [
               {
                 path: '',
-                loadChildren: '../login/login.module#LoginPageModule'
+                loadChildren: () => import('src/app/login/login.module').then( m => m.LoginPageModule)
               }
             ]
           },
@@ -39,7 +39,7 @@ import { CreateAccountPageModule } from '../create-account/create-account.module
             children: [
               {
                 path: '',
-                loadChildren: '../create-account/create-account.module#CreateAccountPageModule'
+                loadChildren: () => import('src/app/create-account/create-account.module').then( m => m.CreateAccountPageModule)
               }
             ]
           }
