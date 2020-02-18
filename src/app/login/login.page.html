@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title text-center>Tout Doux List</ion-title>
+    <ion-title text-center>Welcom</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -29,9 +29,30 @@
         </ion-row>
         <ion-button type="submit" [disabled]="!formAdd.email || !formAdd.password" expand="full" size="default" shape="round" color="success">Submit</ion-button>
         <!-- <ion-button (click)="presentModal()" color="secondary" expand="full" size="default"  shape="round" >Register</ion-button> -->
-        
       </form>
+      
+      <ion-row text-center><ion-col text-center>
+        <ion-label text-center color="medium">Forgot Password?</ion-label>
+      </ion-col></ion-row>
+      
     </ion-card-content>
   </ion-card>
+  
+  <ion-item-divider>
+    <div style="width: 100%; text-align: center;">Or sign in with</div>
+  </ion-item-divider>
+  
+  <ion-row text-center>
+    <ion-col text-center>
+      <ion-button (click)="fb_auth()" shape="round" color="primary">
+        <ion-icon name="logo-facebook"></ion-icon>
+        <ion-label>Facebook</ion-label>
+      </ion-button>
+      <ion-button  shape="round" color="danger">
+          <ion-icon name="logo-google"></ion-icon>
+                    <ion-label>Google</ion-label>
+        </ion-button>
+    </ion-col>
+  </ion-row>
   
 </ion-content>

@@ -7,7 +7,8 @@ import { RouterModule } from '@angular/router';
 import { HomePage } from './home.page';
 import { TodolistPage } from '../todolist/todolist.page';
 import { CreateAccountPage } from '../create-account/create-account.page';
-import { LoginPage } from '../login/login.page';
+import { LoginPageModule } from '../login/login.module';
+import { CreateAccountPageModule } from '../create-account/create-account.module';
 
 @NgModule({
   imports: [
