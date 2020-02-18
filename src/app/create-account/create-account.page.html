@@ -1,22 +1,42 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="login"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Register</ion-title>
+    <ion-title text-center>Tout Doux List</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form (ngSubmit)="logForm()">
-    <ion-item>
-      <ion-input type="email" placeholder="email@truc.com" [(ngModel)]="formAdd.email" name="email"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type="password" placeholder="*****" [(ngModel)]="formAdd.password" name="password"></ion-input>
-    </ion-item>
-    <ion-button type="submit" [disabled]="!formAdd.email || !formAdd.password" expand="full" size="default">     
-      Create
-    </ion-button>
-  </form>
+  
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title text-center>Register</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-row>
+            <ion-col text-center [hidden]="!errorMessage">
+              <ion-chip color="danger" center>
+                <ion-label>{{errorMessage}}</ion-label>
+              </ion-chip> 
+            </ion-col>
+          </ion-row>
+          
+      <form (ngSubmit)="logForm()">
+        <ion-item>
+          <ion-label position="stacked">Email<ion-text color="danger">*</ion-text></ion-label>
+          <ion-input type="email" placeholder="name@example.com" [(ngModel)]="formAdd.email" name="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Password<ion-text color="danger">*</ion-text></ion-label>
+          <ion-input type="password" placeholder="*****" [(ngModel)]="formAdd.password" name="password"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Retype Password<ion-text color="danger">*</ion-text></ion-label>
+          <ion-input type="password" placeholder="*****" [(ngModel)]="formAdd.rpassword" name="rpassword"></ion-input>
+        </ion-item>
+        
+        <ion-button type="submit" [disabled]="!formAdd.email || !formAdd.password || !(formAdd.password==formAdd.rpassword)" expand="full" size="default" shape="round" color="primary">Create Account</ion-button>
+        
+      </form>
+    </ion-card-content>
+  </ion-card>
+  
 </ion-content>

@@ -4,6 +4,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { CreateAccountPage } from '../create-account/create-account.page';
 import { AuthGuardService } from '../auth-guard.service';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -13,9 +14,10 @@ import { AuthGuardService } from '../auth-guard.service';
 export class LoginPage implements OnInit {
  
   createAccountPage : CreateAccountPage
-  formAdd: { email: string, password: string } = { email: "", password: "" }
+  formAdd: { email: string, password: string,  rpassword: string } = { email: "", password: "", rpassword: "" }
+  firstAttempt : boolean = false
   
-  constructor(private router: Router, private auth : AuthGuardService) { }
+  constructor(private router: Router, private auth : AuthGuardService,private modalController: ModalController) { }
   
   ngOnInit() {
   }
@@ -25,12 +27,22 @@ export class LoginPage implements OnInit {
     firebase.auth().signInWithEmailAndPassword(this.formAdd.email, this.formAdd.password).then(res=>{
       this.auth.login()
       this.router.navigate(['/todolist'])
+    },
+    err =>{
+      this.firstAttempt = true
     }
       ).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
       });
+    }
+
+    async presentModal() {
+      const modal = await this.modalController.create({
+        component: CreateAccountPage
+      });
+      return await modal.present();
     }
 
   }

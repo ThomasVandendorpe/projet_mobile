@@ -17,7 +17,32 @@ import { LoginPage } from '../login/login.page';
     RouterModule.forChild([
       {
         path: '',
-        component: HomePage
+        component: HomePage,
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'login'
+          },
+          {
+            path: 'login',
+            children: [
+              {
+                path: '',
+                loadChildren: '../login/login.module#LoginPageModule'
+              }
+            ]
+          },
+          {
+            path: 'register',
+            children: [
+              {
+                path: '',
+                loadChildren: '../create-account/create-account.module#CreateAccountPageModule'
+              }
+            ]
+          }
+        ]
       }
     ])
   ],
