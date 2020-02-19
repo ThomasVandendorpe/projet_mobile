@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  
+
   <ion-card>
     <ion-card-header>
       <ion-card-title text-center>Sign In</ion-card-title>
@@ -13,46 +13,53 @@
     <ion-card-content>
       <form (ngSubmit)="logForm()">
         <ion-item>
-          <ion-label position="stacked"><ion-icon name="person"></ion-icon>Email<ion-text color="danger">*</ion-text></ion-label>
+          <ion-label position="stacked">
+            <ion-icon name="person"></ion-icon>Email<ion-text color="danger">*</ion-text>
+          </ion-label>
           <ion-input type="email" placeholder="name@example.com" [(ngModel)]="formAdd.email" name="email"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="stacked"><ion-icon name="key"></ion-icon>Password<ion-text color="danger">*</ion-text></ion-label>
+          <ion-label position="stacked">
+            <ion-icon name="key"></ion-icon>Password<ion-text color="danger">*</ion-text>
+          </ion-label>
           <ion-input type="password" placeholder="*****" [(ngModel)]="formAdd.password" name="password"></ion-input>
         </ion-item>
         <ion-row>
           <ion-col text-center [hidden]="!firstAttempt">
             <ion-chip color="danger" center>
               <ion-label>Wrong email or password !</ion-label>
-            </ion-chip> 
+            </ion-chip>
           </ion-col>
         </ion-row>
-        <ion-button type="submit" [disabled]="!formAdd.email || !formAdd.password" expand="full" size="default" shape="round" color="success">Submit</ion-button>
+        <ion-button type="submit" [disabled]="!formAdd.email || !formAdd.password" expand="full" size="default"
+          shape="round" color="success">Submit</ion-button>
         <!-- <ion-button (click)="presentModal()" color="secondary" expand="full" size="default"  shape="round" >Register</ion-button> -->
       </form>
-      
-      <ion-row text-center><ion-col text-center>
-        <ion-label text-center color="medium">Forgot Password?</ion-label>
-      </ion-col></ion-row>
-      
+
+      <ion-row text-center>
+        <ion-col text-center>
+          <ion-label text-center color="medium">Forgot Password?</ion-label>
+        </ion-col>
+      </ion-row>
+
     </ion-card-content>
   </ion-card>
-  
+
   <ion-item-divider>
     <div style="width: 100%; text-align: center;">Or sign in with</div>
   </ion-item-divider>
-  
+
   <ion-row text-center>
     <ion-col text-center>
       <ion-button (click)="fb_auth()" shape="round" color="primary">
         <ion-icon name="logo-facebook"></ion-icon>
         <ion-label>Facebook</ion-label>
       </ion-button>
-      <ion-button  shape="round" color="danger">
-          <ion-icon name="logo-google"></ion-icon>
-                    <ion-label>Google</ion-label>
-        </ion-button>
+      <ion-button (click)="google_auth()" shape="round" color="danger">
+        <ion-icon name="logo-google"></ion-icon>
+        <ion-label>Google</ion-label>
+      </ion-button>
     </ion-col>
   </ion-row>
-  
+
 </ion-content>
