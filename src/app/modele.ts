@@ -2,6 +2,7 @@ export interface TodoList {
     id?: string,
     name: string,
     items: TodoItem[]
+    owner: string
 }
 
 export interface TodoItem {

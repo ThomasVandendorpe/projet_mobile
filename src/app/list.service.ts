@@ -21,10 +21,26 @@ export class ListService {
             return { id, ...data };
           });
         }))
-    }
 
+        
+    }
+    
     public getList(): Observable<TodoList[]> {
         return this.todolists;
+    }
+    
+    public getListByUser(email: string): Observable<TodoList[]> {
+        console.log(email)
+        const collection = this.db.collection<TodoList>('items', ref => ref.where('owner', '==', email))
+        return collection.snapshotChanges().pipe(
+            map(actions => {
+              return actions.map(a => {
+                const data = a.payload.doc.data();
+                const id = a.payload.doc.id;
+                return { id, ...data };
+              });
+            }))
+    
     }
 
     public getListByUuid(id: string): Observable<TodoList> {

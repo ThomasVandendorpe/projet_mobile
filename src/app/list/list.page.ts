@@ -13,7 +13,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class ListPage implements OnInit {
 
     id: string;
-    todoList : TodoList = {name:"",items:[]}
+    todoList : TodoList = {name:"",items:[], owner: ""}
     formAdd: { text: string; } = { text: "" };
     showCheckbox: boolean = true;
 
@@ -25,6 +25,7 @@ export class ListPage implements OnInit {
     ngOnInit() {
         this.id = this.route.snapshot.paramMap.get('id')
         this.listService.getListByUuid(this.id).subscribe(res=>{
+            console.log(res)
             this.todoList = res
         })
     }
