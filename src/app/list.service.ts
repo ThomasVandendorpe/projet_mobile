@@ -107,4 +107,14 @@ export class ListService {
         this.todolistCollection.doc<TodoList>(id).delete()
     }
 
+    public addReader(email:string, list:TodoList){
+      list.readers.push(email)
+      this.todolistCollection.doc<TodoList>(list.id).update(list)
+    }
+
+    public addWriter(email:string, list:TodoList){
+      list.writers.push(email)
+      this.todolistCollection.doc<TodoList>(list.id).update(list)
+    }
+
 }
