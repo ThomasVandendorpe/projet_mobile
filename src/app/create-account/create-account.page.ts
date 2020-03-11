@@ -4,6 +4,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-create-account',
@@ -15,7 +16,11 @@ export class CreateAccountPage implements OnInit {
   formAdd: { email: string, password: string, rpassword: string } = { email: "", password: "", rpassword: "" }
   errorMessage : string = ""
 
-  constructor(public router : Router,public modalCtrl: ModalController, public toastController: ToastController) { }
+  constructor(
+    public router : Router,
+    public modalCtrl: ModalController, 
+    public toastController: ToastController,
+    private userService: UserService) { }
 
   ngOnInit() {
   }
@@ -23,7 +28,9 @@ export class CreateAccountPage implements OnInit {
   logForm() {
     console.log(this.formAdd)
     firebase.auth().createUserWithEmailAndPassword(this.formAdd.email, this.formAdd.password).then(
-        () => {
+        uc => {
+          //this.userService.putUser(uc.user.tenantId,"jean")
+          //console.log(uc.user.uid)
           this.router.navigate(['/home/login'])
           this.formAdd = { email: "", password: "", rpassword: "" }
           this.presentToast()

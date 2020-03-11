@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { TodoItem, TodoList } from "./modele";
 import { Pipe, PipeTransform } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { Observable, forkJoin } from 'rxjs';
+import { map, take, merge } from 'rxjs/operators';
 
 @Injectable()
 export class ListService {
@@ -29,7 +29,7 @@ export class ListService {
         return this.todolists;
     }
     
-    public getListByUser(email: string): Observable<TodoList[]> {
+   /* public getListByUser(email: string): Observable<TodoList[]> {
         console.log(email)
         const collection = this.db.collection<TodoList>('items', ref => ref.where('owner', '==', email))
         return collection.snapshotChanges().pipe(
@@ -41,6 +41,50 @@ export class ListService {
               });
             }))
     
+    }*/
+
+    public getReadableListByUser(email: string): Observable<TodoList[]> {
+        console.log(email)
+        const collection = this.db.collection<TodoList>('items', ref => ref.where('readers','array-contains',email))
+        return collection.snapshotChanges().pipe(
+            map(actions => {
+              return actions.map(a => {
+                const data = a.payload.doc.data();
+                const id = a.payload.doc.id;
+                return { id, ...data };
+              });
+            }))
+    }
+
+    public getOwnedListByUser(email: string): Observable<TodoList[]> {
+        console.log(email)
+        const collection = this.db.collection<TodoList>('items', ref => ref.where('owner', '==', email))
+        return collection.snapshotChanges().pipe(
+            map(actions => {
+              return actions.map(a => {
+                const data = a.payload.doc.data();
+                const id = a.payload.doc.id;
+                return { id, ...data };
+              });
+            }))
+    
+    }
+
+    public getWritableListByUser(email: string): Observable<TodoList[]> {
+        console.log(email)
+        const collection = this.db.collection<TodoList>('items', ref => ref.where('writers','array-contains',email))
+        return collection.snapshotChanges().pipe(
+            map(actions => {
+              return actions.map(a => {
+                const data = a.payload.doc.data();
+                const id = a.payload.doc.id;
+                return { id, ...data };
+              });
+            }))
+    }
+
+    public getListByUser(email: string): Observable<TodoList[]> {
+        return this.getReadableListByUser(email).pipe(merge(this.getOwnedListByUser(email)))
     }
 
     public getListByUuid(id: string): Observable<TodoList> {
