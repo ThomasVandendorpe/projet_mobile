@@ -43,9 +43,11 @@ export class TodolistPage implements OnInit {
     const modal = await this.modalController.create({
       component: EditListPage,
       componentProps: {
+        'modalctrl': this.modalController,
         'listName': this.todoList[list_id].name
       }
     });
-    return await modal.present();
+    await modal.present();
+    const { data } = await modal.onWillDismiss();
   }
 }
