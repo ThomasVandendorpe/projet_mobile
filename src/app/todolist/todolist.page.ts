@@ -4,6 +4,8 @@ import { TodoList } from '../modele';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
+import { ModalController } from '@ionic/angular';
+import { EditListPage } from '../edit-list/edit-list.page';
 
 @Component({
   selector: 'app-todolist',
@@ -12,7 +14,11 @@ import 'firebase/auth';
 })
 export class TodolistPage implements OnInit {
 
-  constructor(private listService : ListService) { }
+  constructor(
+    private listService : ListService,
+    public modalController : ModalController
+  ) 
+  { }
 
   private todoList : TodoList[]; 
   private readableList : TodoList[]; 
@@ -58,4 +64,13 @@ export class TodolistPage implements OnInit {
     return this.todoList[i].writers.includes(firebase.auth().currentUser.email) && !(this.todoList[i].owner==firebase.auth().currentUser.email)
   }
   
+  async presentModal(list_id) {
+    const modal = await this.modalController.create({
+      component: EditListPage,
+      componentProps: {
+        'listName': this.todoList[list_id].name
+      }
+    });
+    return await modal.present();
+  }
 }

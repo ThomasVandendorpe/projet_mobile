@@ -7,13 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { TodolistPageRoutingModule } from './todolist-routing.module';
 
 import { TodolistPage } from './todolist.page';
+import { EditListPage } from '../edit-list/edit-list.page';
+import { EditListPageModule } from '../edit-list/edit-list.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TodolistPageRoutingModule
+    TodolistPageRoutingModule,
+    EditListPageModule
   ],
   declarations: [TodolistPage]
 })
