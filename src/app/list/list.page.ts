@@ -5,6 +5,9 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+
 @Component({
     selector: 'app-list',
     templateUrl: './list.page.html',
@@ -13,7 +16,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class ListPage implements OnInit {
 
     id: string;
-    todoList : TodoList = {name:"",items:[], owner: ""}
+    todoList : TodoList = {name:"",items:[], owner: "", readers:[], writers:[]}
     formAdd: { text: string; } = { text: "" };
     showCheckbox: boolean = true;
 
@@ -44,5 +47,9 @@ export class ListPage implements OnInit {
     onDelete(i: number) {
         this.todoList.items.splice(i,1)
         this.listService.postList(this.todoList,this.id);
+    }
+
+    canWrite(){
+        return this.todoList.writers.includes(firebase.auth().currentUser.email) || firebase.auth().currentUser.email==this.todoList.owner;
     }
 }

@@ -11,7 +11,7 @@
   
   <ion-list class="ion-padding">
     
-    <form (ngSubmit)="logForm()">
+    <form (ngSubmit)="logForm()" *ngIf="canWrite()">
       <ion-item>
         <ion-input type="text" placeholder="New item" [(ngModel)]="formAdd.text" name="text"></ion-input>
         <ion-button type="submit" *ngIf="formAdd.text" expand="full" size="default">
