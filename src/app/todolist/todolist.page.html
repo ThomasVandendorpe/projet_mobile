@@ -42,10 +42,10 @@
       <ion-item [routerLink]="['/list/', item.id]" routerDirection="forward">{{item.name}}</ion-item>
 
       <ion-item-options side="end">
-        <!-- <ion-item-option  color="primary">
-          <ion-icon slot="top" name="build"></ion-icon>
+        <ion-item-option  color="primary">
+          <ion-icon slot="top" name="build" (click)="presentModal(i)"></ion-icon>
           Edit
-        </ion-item-option> -->
+        </ion-item-option>
         <ion-item-option color="danger" (click)="onDelete(i)">
           <ion-icon slot="top" name="trash"></ion-icon>
           Delete
