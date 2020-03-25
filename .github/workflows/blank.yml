@@ -43,7 +43,13 @@ jobs:
 
       - name: Add Android platform
         run: ionic cordova platform add android@latest
-
+      
+      - name: Add environment
+        run: mkdir -p src/environments && echo ${{secret.ENVIRONMENT}} > src/environments/environment.ts
+        
+      - name: Add environment prod
+        run: mkdir -p src/environments && echo ${{secret.ENVIRONMENT_PROD}} > src/environments/environment.ts
+        
       - name: Build Android Dev APK
         run: ionic cordova build android
 
