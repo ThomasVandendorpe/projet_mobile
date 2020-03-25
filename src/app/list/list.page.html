@@ -23,8 +23,8 @@
     
     <ion-item-sliding *ngFor="let item of todoList.items ; let i = index">
       <ion-item>
-        <ion-checkbox slot="start" *ngIf="showCheckbox" (ionChange)="onChange()" [(ngModel)]="item.complete"></ion-checkbox>
-        <ion-label color="{{item.complete?'medium':'dark'}}">{{item.name}}</ion-label>
+        <ion-checkbox slot="start" *ngIf="showCheckbox" (ionChange)="onChange()" [(ngModel)]="item.complete" [disabled]="!canWrite()"></ion-checkbox>
+        <ion-label color="{{(item.complete&&canWrite())?'medium':'dark'}}">{{item.name}}</ion-label>
       </ion-item>
       
       <ion-item-options side="end">
