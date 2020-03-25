@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NavParams, ModalController } from '@ionic/angular';
+import { ListService } from '../list.service';
+import { TodoList } from '../modele';
 
 @Component({
   selector: 'app-edit-list',
@@ -7,62 +9,49 @@ import { NavParams, ModalController } from '@ionic/angular';
   styleUrls: ['./edit-list.page.scss'],
 })
 export class EditListPage {
-  @Input() listName: string;
-  @Input() readers: String[];
-  @Input() writers: String[];
-  @Input() owner: String;
+  public todolist : TodoList;
 
   public formAddReader: { text: string; } = { text: "" };
   public formAddWriter: { text: string; } = { text: "" };
 
   modalCtrl: ModalController;
 
-  constructor(params: NavParams) {
+  constructor(
+    params: NavParams,
+    private listService: ListService
+  ) {
+    this.setParams(params);
+  }
+
+  setParams(params: NavParams) {
+    this.todolist = params.get("list");
     this.modalCtrl = params.get("modalctrl");
-    this.listName = params.get("listName");
   }
 
-  dismissModal() {
+  closeModal() {
     this.modalCtrl.dismiss({
       'dismissed': true,
-      'canceled': false,
-      'listName': this.listName,
-      'readers': this.readers,
-      'writers': this.writers
     });
   }
 
-  cancelModal() {
-    this.modalCtrl.dismiss({
-      'dismissed': true,
-      'canceled': true
-    });
+  remove_writer(writer: string) {
+    this.listService.removeWriter(writer, this.todolist);
   }
 
-  remove_writer(writer: String) {
-    const index: number = this.writers.indexOf(writer);
-    if (index !== -1) {
-      this.writers.splice(index, 1);
-    }
-  }
-
-  remove_reader(reader: String) {
-    const index: number = this.readers.indexOf(reader);
-    if (index !== -1) {
-      this.readers.splice(index, 1);
-    }
+  remove_reader(reader: string) {
+    this.listService.removeReader(reader, this.todolist);
   }
 
   add_reader() {
     if(this.formAddReader.text.length > 0) {
-      this.readers.push(this.formAddReader.text);
+      this.listService.addReader(this.formAddReader.text, this.todolist);
       this.formAddReader.text = "";
     }
   }
 
   add_writer() {
     if(this.formAddWriter.text.length > 0) {
-      this.writers.push(this.formAddWriter.text);
+      this.listService.addWriter(this.formAddWriter.text, this.todolist);
       this.formAddWriter.text = "";
     }
   }

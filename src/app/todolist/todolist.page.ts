@@ -69,24 +69,13 @@ export class TodolistPage implements OnInit {
   }
   
   async presentModal(list_id) {
-    console.log("ON CREE UN NOUVEAU NORMALEMENT");
     const modal = await this.modalController.create({
       component: EditListPage,
       componentProps: {
         'modalctrl': this.modalController,
-        'listName': this.todoList[list_id].name,
-        'readers': this.todoList[list_id].readers,
-        'writers': this.todoList[list_id].writers,
-        'owner': this.todoList[list_id].owner
+        'list': this.todoList[list_id]
       }
     });
     await modal.present();
-    const { data } = await modal.onWillDismiss();
-    if(!data.canceled) {
-      this.todoList[list_id].name = data.listName;
-      this.todoList[list_id].readers = data.readers;
-      this.todoList[list_id].writers = data.writers;
-      this.listService.updateList(this.todoList[list_id]);
-    }
   }
 }
