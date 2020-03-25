@@ -9,7 +9,7 @@ import { TodoList } from '../modele';
   styleUrls: ['./edit-list.page.scss'],
 })
 export class EditListPage {
-  private todolist : TodoList;
+  public todolist : TodoList;
 
   public formAddReader: { text: string; } = { text: "" };
   public formAddWriter: { text: string; } = { text: "" };
