@@ -12,8 +12,8 @@ export class EditListPage {
   @Input() writers: String[];
   @Input() owner: String;
 
-  private formAddReader: { text: string; } = { text: "" };
-  private formAddWriter: { text: string; } = { text: "" };
+  public formAddReader: { text: string; } = { text: "" };
+  public formAddWriter: { text: string; } = { text: "" };
 
   modalCtrl: ModalController;
 

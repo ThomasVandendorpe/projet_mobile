@@ -15,16 +15,16 @@ import { EditListPage } from '../edit-list/edit-list.page';
 export class TodolistPage implements OnInit {
 
   constructor(
-    private listService : ListService,
+    public listService : ListService,
     public modalController : ModalController
   ) 
   { }
 
-  private todoList : TodoList[]; 
-  private readableList : TodoList[]; 
-  private writableList : TodoList[]; 
-  private ownedList : TodoList[]; 
-  private formAdd: { text: string; } = { text: "" };
+  public todoList : TodoList[]; 
+  public readableList : TodoList[]; 
+  public writableList : TodoList[]; 
+  public ownedList : TodoList[]; 
+  public formAdd: { text: string; } = { text: "" };
 
 
   ngOnInit() {
