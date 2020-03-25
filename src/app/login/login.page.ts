@@ -67,7 +67,8 @@ export class LoginPage implements OnInit {
   google_auth() {
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth()
-      .signInWithPopup(provider)
+      .signInWithRedirect(provider)
+//      .signInWithPopup(provider)
       .then(result => {
         this.auth.login();
         this.router.navigate(['/todolist']);
@@ -77,6 +78,9 @@ export class LoginPage implements OnInit {
         var email = error.email;
         var credential = error.credential;
       });
+  }
 
+  android_auth() {
+    var provider = new firebase.auth.GoogleAuthProvider();
   }
 }
