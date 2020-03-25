@@ -11,8 +11,8 @@ import { TodoList } from '../modele';
 export class EditListPage {
   private todolist : TodoList;
 
-  private formAddReader: { text: string; } = { text: "" };
-  private formAddWriter: { text: string; } = { text: "" };
+  public formAddReader: { text: string; } = { text: "" };
+  public formAddWriter: { text: string; } = { text: "" };
 
   modalCtrl: ModalController;
 
