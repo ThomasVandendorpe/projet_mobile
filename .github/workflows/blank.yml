@@ -48,7 +48,7 @@ jobs:
         run: mkdir -p src/environments && (echo "${{secrets.ENVIRONMENT}}" > src/environments/environment.ts)
         
       - name: Add environment prod
-        run: mkdir -p src/environments && (echo "${{secrets.ENVIRONMENT_PROD}}" > src/environments/environment.ts)
+        run: mkdir -p src/environments && (echo "${{secrets.ENVIRONMENT_PROD}}" > src/environments/environment.prod.ts)
         
       - name: Build Android Dev APK
         run: ionic cordova build android
