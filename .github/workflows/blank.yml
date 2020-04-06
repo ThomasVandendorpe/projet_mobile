@@ -30,7 +30,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: v12.16.1
+          node-version: '10.x'
 
       - name: Install Cordova
         run: npm install -g cordova
