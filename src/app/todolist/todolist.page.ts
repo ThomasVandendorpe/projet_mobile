@@ -20,17 +20,14 @@ export class TodolistPage implements OnInit {
   ) 
   { }
 
-  public todoList : TodoList[]; 
-  public readableList : TodoList[]; 
-  public writableList : TodoList[]; 
-  public ownedList : TodoList[]; 
+  public todoList : TodoList[] = []; 
+  public readableList : TodoList[] = []; 
+  public writableList : TodoList[] = []; 
+  public ownedList : TodoList[] = []; 
   public formAdd: { text: string; } = { text: "" };
 
 
   ngOnInit() {
-    // this.listService.getListByUser(firebase.auth().currentUser.email).subscribe(res=>{
-    //   this.todoList = res
-    // })
     //TODO: améliorer (un seul observable vaec combineLatest)
     this.listService.getOwnedListByUser(firebase.auth().currentUser.email).subscribe(res=>{
       this.ownedList = res
@@ -47,7 +44,7 @@ export class TodolistPage implements OnInit {
   }
 
   logForm() {
-    console.log(this.formAdd)
+    //console.log(this.formAdd)
     this.listService.putList({name:this.formAdd.text,items:[], owner: firebase.auth().currentUser.email, readers:[],writers:[]});
     this.formAdd.text = "";
   }
@@ -65,7 +62,7 @@ export class TodolistPage implements OnInit {
   }
 
   isOwner(i : number) {
-    return this.todoList[i].owner.includes(firebase.auth().currentUser.email);
+    return this.todoList[i] && this.todoList[i].owner==firebase.auth().currentUser.email;
   }
   
   async presentModal(list_id) {

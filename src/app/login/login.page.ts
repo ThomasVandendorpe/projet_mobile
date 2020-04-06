@@ -24,7 +24,7 @@ export class LoginPage implements OnInit {
   }
 
   logForm() {
-    console.log(this.formAdd)
+    //console.log(this.formAdd)
     firebase.auth()
       .signInWithEmailAndPassword(this.formAdd.email, this.formAdd.password)
       .then(res => {

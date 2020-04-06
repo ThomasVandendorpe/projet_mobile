@@ -29,8 +29,8 @@
         {{item.name}}
         <ion-icon name="eye" slot="end" *ngIf="isReadOnly(i)"></ion-icon>
         <ion-icon name="create" slot="end" *ngIf="isWriteOnly(i)"></ion-icon>
-        <ion-label text-right *ngIf="isReadOnly(i)" color="medium">Readable</ion-label>
-        <ion-label text-right *ngIf="isWriteOnly(i)" color="medium">Writable</ion-label>
+        <ion-label class="ion-text-right" *ngIf="isReadOnly(i)" color="medium">Readable</ion-label>
+        <ion-label class="ion-text-right" *ngIf="isWriteOnly(i)" color="medium">Writable</ion-label>
       </ion-item>
       <ion-item-options *ngIf="isOwner(i)" side="end">
         <ion-item-option color="danger" (click)="onDelete(i)">
@@ -38,7 +38,6 @@
           Delete
         </ion-item-option>
       </ion-item-options>
-
     </ion-item-sliding>
 
   </ion-list>
