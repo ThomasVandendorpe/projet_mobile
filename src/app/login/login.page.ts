@@ -71,21 +71,6 @@ export class LoginPage implements OnInit {
 
   google_auth() {
     var provider = new firebase.auth.GoogleAuthProvider();
-    if(this.platform.is("android") || this.platform.is("cordova")) {
-      firebase.auth().signInWithRedirect(provider)
-        .then(function() {
-          return firebase.auth().getRedirectResult();
-        })
-        .then(result => {
-          this.auth.login();
-          this.router.navigate(['/todolist']);
-        }).catch(error => {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          var email = error.email;
-          var credential = error.credential;
-        });
-    } else {
       firebase.auth()
         .signInWithPopup(provider)
         .then(result => {
@@ -97,6 +82,5 @@ export class LoginPage implements OnInit {
           var email = error.email;
           var credential = error.credential;
         });
-    }
   }
 }
