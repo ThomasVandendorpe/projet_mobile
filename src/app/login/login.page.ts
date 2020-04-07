@@ -71,7 +71,7 @@ export class LoginPage implements OnInit {
 
   google_auth() {
     var provider = new firebase.auth.GoogleAuthProvider();
-    if(this.platform.is("android")) {
+    if(this.platform.is("android") || this.platform.is("cordova")) {
       firebase.auth().signInWithRedirect(provider)
         .then(function() {
           return firebase.auth().getRedirectResult();
