@@ -4,7 +4,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { CreateAccountPage } from '../create-account/create-account.page';
 import { AuthGuardService } from '../auth-guard.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +17,12 @@ export class LoginPage implements OnInit {
   formAdd: { email: string, password: string, rpassword: string } = { email: "", password: "", rpassword: "" }
   firstAttempt: boolean = false
 
-  constructor(private router: Router, private auth: AuthGuardService, private modalController: ModalController) { }
+  constructor(
+    private router: Router,
+    private auth: AuthGuardService, 
+    private modalController: ModalController,
+    private platform: Platform
+  ) { }
 
 
   ngOnInit() {
@@ -66,17 +71,32 @@ export class LoginPage implements OnInit {
 
   google_auth() {
     var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth()
-      .signInWithPopup(provider)
-      .then(result => {
-        this.auth.login();
-        this.router.navigate(['/todolist']);
-      }).catch(error => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        var email = error.email;
-        var credential = error.credential;
-      });
-
+    if(this.platform.is("android")) {
+      firebase.auth().signInWithRedirect(provider)
+        .then(function() {
+          return firebase.auth().getRedirectResult();
+        })
+        .then(result => {
+          this.auth.login();
+          this.router.navigate(['/todolist']);
+        }).catch(error => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          var email = error.email;
+          var credential = error.credential;
+        });
+    } else {
+      firebase.auth()
+        .signInWithPopup(provider)
+        .then(result => {
+          this.auth.login();
+          this.router.navigate(['/todolist']);
+        }).catch(error => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          var email = error.email;
+          var credential = error.credential;
+        });
+    }
   }
 }
