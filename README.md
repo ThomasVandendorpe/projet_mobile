@@ -6,8 +6,12 @@
 
 * TodoListe partagée en lecture et écriture
 * Connexion avec Google (Desktop)
-* Modification des droits d'accès pas le propriétaire de la liste
+* Modification des droits d'accès par le propriétaire de la liste
 * Secouer le téléphone pour inverser l'ordre des items de la liste courante
+* Gestion de certaines erreurs
+* Intégration continue (avec release de l'APK)
+* Règles firebase
+* Host de l'application sur firebase: https://todolist-c3752.web.app/home/login
 
 ## Fonctionnalités dont l'implémentation a échoué et la cause
 
